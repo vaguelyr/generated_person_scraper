@@ -7,11 +7,11 @@ userAgent='Mozilla/5.0 (X11; Fedora; Linux x86_64) AppleWebKit/537.36 (KHTML, li
 
 # add some jitter for fun
 jitterTime(){
-	t=$(( $1 * 100)) 	# base time
-	l=$(( ($2-1) * 100)) 	# tolerance
-	major=$(( ( ($t - $l )  + ( RANDOM % (2 * ($l+50)))) / 100 ))
-	minor=$((RANDOM % 10000))
-	echo $major.$minor
+	num=$1 ; tol=$2
+	awk 'BEGIN{
+                srand('$(date +%N)')
+                print (2*rand()+-1)*'$tol'+'$num'
+        }'
 }
 
 sleep(){
